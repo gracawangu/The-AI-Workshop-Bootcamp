@@ -33,9 +33,20 @@ sudo ACCEPT_EULA=Y apt-get install -y mssql-tools18 unixodbc-dev && \
 
 
 ## To sync your database with the latest tutor version, run this in the terminal:
+
+```bash
+git config pull.rebase false && git pull
+```
+Then this: 
+
 ```bash
 /opt/mssql-tools18/bin/sqlcmd -S db -U sa -P 'Bootcamp123!' -C -i /workspaces/The-AI-Workshop-Bootcamp/seed.sql
 ```
+Look at the top of your VS Code window — there should be a new tab open with a file called MERGE_MSG.
+Click on that tab, then either:
+
+Close the tab, press complete, or 
+Press Ctrl+W to close it
 ##  Tips
 - Stop your Codespace at **github.com/codespaces** after each session to save free hours
 - Free tier = 60 hours/month — plenty for a weekly bootcamp
