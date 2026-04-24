@@ -12,14 +12,14 @@ GO
 -- Task: Calculate each patient's current age in years
 -- Hint: Use DATEDIFF(YEAR, DateOfBirth, GETDATE())
 -- YOUR ANSWER:
-
+  SELECT FirstName, LastName, DateOfBirth, DATEDIFF(YEAR, DateOfBirth, GETDATE()) AS age FROM Patients;
 
 -- -----------------------------------------------
 -- EXERCISE 2: Filter by age
 -- -----------------------------------------------
 -- Task: Find all patients over 70 years old
 -- YOUR ANSWER:
-
+SELECT FirstName, LastName, DateOfBirth FROM Patients WHERE DATEDIFF(YEAR, DateOfBirth, GETDATE()) >= 70;
 
 -- -----------------------------------------------
 -- EXERCISE 3: NULL handling
@@ -27,6 +27,7 @@ GO
 -- Task: Find all admissions where the patient has NOT yet been discharged
 -- (DischargeDate is NULL means still admitted)
 -- YOUR ANSWER:
+SELECT * FROM Admissions WHERE DischargeDate IS NULL;
 
 
 -- -----------------------------------------------
@@ -34,28 +35,27 @@ GO
 -- -----------------------------------------------
 -- Task: How many patients are registered in total?
 -- YOUR ANSWER:
-
+SELECT COUNT(*) AS Total FROM Patients;
 
 -- -----------------------------------------------
 -- EXERCISE 5: GROUP BY
 -- -----------------------------------------------
 -- Task: Count how many patients are registered with each GP
 -- YOUR ANSWER:
-
-
+ SELECT RegisteredGP, COUNT(*) AS "Number of Patients "FROM Patients GROUP BY RegisteredGP;
 -- -----------------------------------------------
 -- EXERCISE 6: COUNT with GROUP BY on admissions
 -- -----------------------------------------------
 -- Task: How many admissions were Emergency vs Elective vs Transfer?
 -- YOUR ANSWER:
-
+SELECT AdmissionType, COUNT(*) AS "Total" FROM Admissions GROUP BY AdmissionType;
 
 -- -----------------------------------------------
 -- EXERCISE 7: HAVING
 -- -----------------------------------------------
 -- Task: Which GPs have more than 2 registered patients?
 -- YOUR ANSWER:
-
+SELECT RegisteredGP, COUNT(*) AS "Number of patients" FROM Patients GROUP BY RegisteredGP HAVING COUNT(*) > 2;
 
 -- -----------------------------------------------
 -- BONUS: Length of stay
