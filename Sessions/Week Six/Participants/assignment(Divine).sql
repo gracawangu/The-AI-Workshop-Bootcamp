@@ -92,11 +92,34 @@ CREATE VIEW vw_my_data AS
 SELECT *
 FROM (
     VALUES
-    --  id  name    category    price   in_stock
-        (1, 'Widget A', 'Gadget', 19.99, 100),
-        (2, 'Widget B', 'Gadget', 29.99, 50),
-        (3, 'Widget C', 'Tool',   9.99, 200),
-        (4, 'Widget D', 'Tool',   14.99, 150),
-        (5, 'Widget E', 'Gadget', 24.99, 75)
-) AS t(id, name, category, price, in_stock);
+    --  id  name    category    price   in_stock    discount_code
+        (1, 'Widget A', 'Gadget', 19.99, 100, 'SAVE10'),
+        (2, 'Widget B', 'Gadget', 29.99, 50,  'VIP20' ),
+        (3, 'Widget C', 'Tool',   9.99, 200, NULL   ),
+        (4, 'Widget D', 'Tool',   14.99, 150, 'SAVE10'),
+        (5, 'Widget E', 'Gadget', 24.99, 75,  'VIP20' ),
+        (6, 'Widget F', 'Tool',   12.99, 120, NULL   ),
+        (7, 'Widget G', 'Gadget', 34.99, 30,  'SAVE10'),
+        (8, 'Widget H', 'Tool',   7.99, 250, NULL   ),
+        (9, 'Widget I', 'Gadget', 27.99, 60,  'VIP20' ),
+        (10,'Widget J', 'Tool',   19.99, 80,  'SAVE10')
+) AS t(id, name, category, price, in_stock, discount_code);
 GO
+
+-- Quick check
+SELECT * FROM vw_my_data;
+
+-- Query 1
+SELECT * FROM vw_my_data
+WHERE category = 'Gadget' AND price > 25;
+
+-- Query 2
+SELECT name, price, discount_code
+FROM vw_my_data
+WHERE price BETWEEN 10 AND 20;
+
+-- Query 3
+SELECT category, COUNT(*) AS product_count
+FROM vw_my_data
+WHERE discount_code IS NOT NULL
+GROUP BY category;
